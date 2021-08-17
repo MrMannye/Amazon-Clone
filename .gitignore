@@ -3,6 +3,10 @@
 # dependencies
 /node_modules
 /.vscode
+/.firebase
+firebase.json
+.firebaserc
+.eslintcache
 /.pnp
 .pnp.js
 
