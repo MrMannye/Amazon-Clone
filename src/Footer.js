@@ -5,7 +5,7 @@ function Footer() {
     return (
         <div className='footer'>
             <div className='footer__inicio'>
-                <a href="#">Inicio de pagina</a>
+                <a href="#header">Inicio de pagina</a>
             </div>
             <div className="footer__info">
                 <div className="footer__row">

@@ -10,9 +10,6 @@ import Login from './Login';
 import {useStateValue} from './StateProvider'
 import {auth} from './firebase'
 
-{/* WE NEED REACT ROUTER FOR MULTI-PAGES */}
-{/* amazon-clone/login */}
-{/* amazon-clone/checkout */}
 
 //  PARA SUBIR LA PAGINA AL HOSTING DE FIREBASE
 
@@ -24,8 +21,6 @@ import {auth} from './firebase'
 //   firebase deploy
 // }
 
-{/* PARA INSTALAR REACT ROUTER 
-npm install react-router-dom */}
 
 
 function App() {
