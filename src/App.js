@@ -1,24 +1,85 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useEffect} from 'react';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import Header from './Header';
+import Home from './Home'
+import Menu from './Menu'
+import Footer from './Footer';
+import Checkout from './Checkout';
+import Login from './Login';
+import {useStateValue} from './StateProvider'
+import {auth} from './firebase'
+
+{/* WE NEED REACT ROUTER FOR MULTI-PAGES */}
+{/* amazon-clone/login */}
+{/* amazon-clone/checkout */}
+
+//  PARA SUBIR LA PAGINA AL HOSTING DE FIREBASE
+
+// {
+//   firebase login
+//   firebase init
+//   build
+//   npm run build 
+//   firebase deploy
+// }
+
+{/* PARA INSTALAR REACT ROUTER 
+npm install react-router-dom */}
+
 
 function App() {
+  
+  const[{user} , dispatch] = useStateValue();
+  // useEffect 
+  // Piece of code wich runs based on a give condition
+  useEffect(() => {
+      const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser){
+        // THE USER IS LOGGED IN
+        dispatch({
+          type: 'SET_USER',
+          user: authUser,
+        });
+      } else {
+        // THE USER IS LOGGED OUT
+        dispatch({
+          type: 'SET_USER',
+          user: null,
+        });
+      }
+    });
+    return() => {
+      unsubscribe();
+    }
+  }, []);
+
+  console.log("USER IS >>>", user);
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="app">
+        <Switch>
+          <Route path='/checkout'>
+            <Header/>
+            <Menu/>
+            <Checkout/>
+            <Footer></Footer>
+          </Route>
+          <Route path='/login'>
+            <Login/>
+          </Route>
+
+          {/* Direccion raiz de la pagina,es decir, la pagina principal  */}
+          <Route path='/'>
+            <Header/>
+            <Menu/>
+            <Home/>
+            <Footer/>
+          </Route>
+        </Switch>
+      </div>
+    </Router> 
   );
 }
 
